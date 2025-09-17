@@ -1,0 +1,13 @@
+# Personal Finance Tracker Dependencies
+# Core Python standard library modules are used for most functionality
+# No external dependencies required for basic functionality
+
+# Optional dependencies for enhanced features:
+# matplotlib>=3.5.0  # For generating charts and graphs
+# pandas>=1.3.0      # For advanced data analysis
+# tabulate>=0.8.9    # For better table formatting
+
+# Development dependencies (uncomment if needed):
+# pytest>=6.0.0      # For running tests
+# black>=22.0.0      # For code formatting
+# flake8>=4.0.0      # For code linting
