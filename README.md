@@ -1,163 +1,69 @@
-# 💰 Personal Finance Tracker
+# Hi, I'm Spoorti Inganalli 👋
 
-> A Python-based personal finance management tool with data analytics, visualizations, and ML-powered spending predictions.
+I'm a Python developer transitioning into **AI & Robotics** — building at the intersection of intelligent systems, automation, and real-world impact.
 
-**Author:** Spoorti Inganalli · [LinkedIn](https://linkedin.com/in/spoortiinganalli) · [GitHub](https://github.com/Spoorti-I)  
-**Stack:** Python · Pandas · NumPy · Matplotlib · Scikit-learn · CSV/JSON
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|--------|-------------|
-| 📝 **Transaction Management** | Add, view, search, and delete income/expense records |
-| 📊 **Dashboard Summary** | Monthly income vs expense breakdown with budget alerts |
-| 🎯 **Budget Tracker** | Set per-category budget limits with over-budget warnings |
-| 📈 **Pandas Analytics** | Monthly trends, category stats, descriptive analysis |
-| 📉 **Matplotlib Charts** | 4-panel visual dashboard — bar, pie, line, and area charts |
-| 🤖 **ML Prediction** | Linear Regression model to predict next month's expenses |
-| 💾 **CSV Export** | Export filtered transactions to CSV |
-| 🔍 **Smart Search** | Filter by keyword, category, date range, and tags |
+My background spans software development and academic research (ORCID verified), and I'm now channeling that into AI-powered applications and robotics systems that solve tangible problems.
 
 ---
 
-## 🚀 Getting Started
+## 🔭 What I'm building toward
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/Spoorti-I/finance_tracker.git
-cd finance_tracker
-```
-
-### 2. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run the Application
-
-```bash
-python finance_tracker.py
-```
+- Intelligent agents and LLM-powered tools
+- Computer vision pipelines for robotics applications
+- Autonomous systems using ROS 2 and Python
 
 ---
 
-## 📦 Requirements
+## 🛠️ Tech stack
 
-```txt
-pandas>=2.0.0
-numpy>=1.24.0
-matplotlib>=3.7.0
-scikit-learn>=1.3.0
-```
+**Languages**
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 
-> **Note:** The app works even without these libraries — it gracefully degrades to basic CSV-only mode. Analytics, charts, and ML features require the libraries above.
+**Currently learning**
+![LangChain](https://img.shields.io/badge/LangChain-000000?style=flat&logo=chainlink&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)
+![ROS2](https://img.shields.io/badge/ROS_2-22314E?style=flat&logo=ros&logoColor=white)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-FFD21E?style=flat&logo=huggingface&logoColor=black)
 
----
-
-## 🖥️ Application Menu
-
-```
-  ┌─────────────────────────────────┐
-  │   1.  ➕  Add Transaction       │
-  │   2.  📋  View All Transactions │
-  │   3.  📆  View This Month       │
-  │   4.  📊  Dashboard Summary     │
-  │   5.  🎯  Set Budgets           │
-  │   6.  🔍  Search Transactions   │
-  │   7.  🗑️   Delete Transaction   │
-  │   8.  📈  Pandas Analytics      │
-  │   9.  📉  Generate Charts       │
-  │  10.  🤖  Predict Next Month    │
-  │  11.  💾  Export to CSV         │
-  │   0.  🚪  Exit                  │
-  └─────────────────────────────────┘
-```
+**Tools & workflow**
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat&logo=visual-studio-code&logoColor=white)
 
 ---
 
-## 📁 Project Structure
+## 📌 Featured projects
 
-```
-finance_tracker/
-├── finance_tracker.py     # Main application
-├── sample_data.py         # Script to load sample transactions
-├── requirements.txt       # Python dependencies
-├── transactions.csv       # Auto-created: all transaction records
-├── budgets.json           # Auto-created: monthly budget limits
-├── finance_charts.png     # Auto-generated: visualization dashboard
-└── README.md
-```
+### 🤖 [AI-Powered Finance Tracker](https://github.com/Spoorti-I/finance_tracker)
+> Python · LLM API · pandas
+
+A personal finance tracker upgraded with AI — auto-categorises expenses, detects spending anomalies, and delivers plain-English financial insights using an LLM backend.
 
 ---
 
-## 📊 Charts Preview
+## 🔬 Research background
 
-The `Generate Charts` option creates a 4-panel dashboard:
-
-1. **Monthly Income vs Expense** — grouped bar chart
-2. **Expense by Category** — pie chart with percentages
-3. **Monthly Net Savings** — color-coded bar (green = surplus, red = deficit)
-4. **Cumulative Savings Over Time** — area chart
+I bring a research-oriented mindset to everything I build.
+My academic work is registered on **ORCID**: [0009-0008-7131-6113](https://orcid.org/0009-0008-7131-6113)
 
 ---
 
-## 🤖 ML Spending Predictor
+## 📈 GitHub activity
 
-Uses **Linear Regression** (scikit-learn) trained on your historical monthly expenses to forecast next month's spending. Displays model R² score for confidence evaluation.
+![Spoorti's GitHub stats](https://github-readme-stats.vercel.app/api?username=Spoorti-I&show_icons=true&theme=default&hide_border=true&count_private=true)
 
-```
-  🤖  ML SPENDING PREDICTION (Linear Regression)
-  ═══════════════════════════════════════════════
-  Training months : 6
-  Model R² Score  : 0.872 (Good fit)
-
-  📅  Historical monthly expenses:
-     2025-10       ₹  8,200.00
-     2025-11       ₹  9,100.00
-     ...
-
-  🔮  Predicted next month's expense:  ₹10,450.00
-```
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Spoorti-I&layout=compact&hide_border=true&theme=default)
 
 ---
 
-## 🏷️ Supported Categories
+## 🤝 Let's connect
 
-`Food & Dining` · `Transport` · `Shopping` · `Entertainment` · `Health & Medical` · `Education` · `Utilities` · `Rent/EMI` · `Savings/Investment` · `Salary/Income` · `Freelance` · `Other`
+I'm open to collaborating on AI tools, robotics software, and research-driven projects.
 
----
-
-## 🛠️ Technologies Used
-
-- **Python 3.x** — Core application logic
-- **Pandas** — Data wrangling and monthly aggregation
-- **NumPy** — Numerical operations
-- **Matplotlib** — Data visualization (4 chart types)
-- **Scikit-learn** — Linear Regression for expense forecasting
-- **CSV / JSON** — Lightweight file-based storage
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/spoorti-inganalli-9683682b9)
+[![ORCID](https://img.shields.io/badge/ORCID-A6CE39?style=flat&logo=orcid&logoColor=white)](https://orcid.org/0009-0008-7131-6113)
+[![Email](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:spoortiinganalli255@gmail.com)
 
 ---
 
-## 📄 License
-
-This project is open-source under the [MIT License](LICENSE).
-
----
-
-## 🙋‍♀️ About the Author
-
-**Spoorti Inganalli**  
-BE Computer Science Engineering · KLE Institute of Technology, Hubli (VTU)  
-6th Semester · Graduating June 2027
-
-- 💼 [LinkedIn](https://linkedin.com/in/spoortiinganalli)
-- 🐙 [GitHub](https://github.com/Spoorti-I)
-- 📧 spoortiinganalli255@gmail.com
-
----
-
-*Built with ❤️ using Python · Pandas · Matplotlib · Scikit-learn*
+*Currently exploring the edge where Python meets physical intelligence. Always building.*
