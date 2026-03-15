@@ -1,6 +1,6 @@
 """
 ╔══════════════════════════════════════════════════════════════════╗
-║           Personal Finance Tracker v2.0                          ║
+║           Personal Finance Tracker v2.1                          ║
 ║           Author: Spoorti Inganalli                              ║
 ║           GitHub: github.com/Spoorti-I                          ║
 ║           Tech: Python | Pandas | Matplotlib | Scikit-learn     ║
@@ -31,6 +31,7 @@ except ImportError:
 # ─────────────────────────────────────────────
 DATA_FILE = "transactions.csv"
 BUDGET_FILE = "budgets.json"
+GOALS_FILE = "savings_goals.json"
 CATEGORIES = [
     "Food & Dining", "Transport", "Shopping", "Entertainment",
     "Health & Medical", "Education", "Utilities", "Rent/EMI",
@@ -59,6 +60,11 @@ def initialize_files():
         with open(BUDGET_FILE, "w") as f:
             json.dump(default_budgets, f, indent=2)
         print(f"  ✅ Created {BUDGET_FILE}")
+
+    if not os.path.exists(GOALS_FILE):
+        with open(GOALS_FILE, "w") as f:
+            json.dump([], f)
+        print(f"  ✅ Created {GOALS_FILE}")
 
 
 def load_transactions():
@@ -524,10 +530,201 @@ def export_to_csv():
 
 def print_banner():
     print("\n" + "═" * 55)
-    print("  💰  Personal Finance Tracker v2.0")
+    print("  💰  Personal Finance Tracker v2.1")
     print("  👩‍💻  by Spoorti Inganalli | github.com/Spoorti-I")
     print("  🐍  Python | Pandas | Matplotlib | Scikit-learn")
     print("═" * 55)
+
+
+# ─────────────────────────────────────────────
+#  SAVINGS GOAL TRACKER
+# ─────────────────────────────────────────────
+
+# load goals from json file
+def load_goals():
+    if not os.path.exists(GOALS_FILE):
+        return []
+    with open(GOALS_FILE, "r") as f:
+        return json.load(f)
+
+# save goals back to json
+def save_goals(goals):
+    with open(GOALS_FILE, "w") as f:
+        json.dump(goals, f, indent=2)
+
+# figure out how much user has saved so far (from Savings/Investment transactions)
+def get_total_saved():
+    transactions = load_transactions()
+    total = 0.0
+    for t in transactions:
+        if t["type"] == "Income" and t["category"] == "Savings/Investment":
+            total += t["amount"]
+        elif t["type"] == "Expense" and t["category"] == "Savings/Investment":
+            total += t["amount"]  # treat savings deposits as positive
+    # actually let's just count all transactions tagged as savings
+    total = sum(
+        t["amount"] for t in transactions
+        if t["category"] == "Savings/Investment" and t["type"] == "Income"
+    )
+    return total
+
+def savings_goal_tracker():
+    print("\n" + "═" * 55)
+    print("  💰  SAVINGS GOAL TRACKER")
+    print("═" * 55)
+
+    goals = load_goals()
+
+    # sub menu for goals
+    print("\n  1. Add a new goal")
+    print("  2. View all goals & progress")
+    print("  3. Update saved amount for a goal")
+    print("  4. Delete a goal")
+    print("  0. Back")
+
+    choice = input("\n  Choose: ").strip()
+
+    if choice == "1":
+        # add new goal
+        print("\n  --- Add New Savings Goal ---")
+        name = input("  Goal name (e.g. New Laptop, Trip to Goa): ").strip()
+        if not name:
+            print("  ⚠️  Name cannot be empty!")
+            return
+
+        try:
+            target = float(input("  Target amount (₹): ").strip())
+            saved = float(input("  Amount already saved (₹) [0 if starting fresh]: ").strip())
+        except ValueError:
+            print("  ⚠️  Please enter valid numbers.")
+            return
+
+        deadline = input("  Target date (YYYY-MM-DD) [optional, press Enter to skip]: ").strip()
+
+        # create goal dict
+        goal = {
+            "id": len(goals) + 1,
+            "name": name,
+            "target": target,
+            "saved": saved,
+            "deadline": deadline if deadline else "No deadline",
+            "created": str(date.today())
+        }
+        goals.append(goal)
+        save_goals(goals)
+        print(f"\n  ✅ Goal '{name}' added! Target: ₹{target:,.2f}")
+
+    elif choice == "2":
+        # show all goals with a simple progress bar
+        if not goals:
+            print("\n  No goals yet. Add one first!")
+            return
+
+        print("\n" + "─" * 55)
+        for g in goals:
+            pct = (g["saved"] / g["target"] * 100) if g["target"] > 0 else 0
+            pct = min(pct, 100)  # cap at 100%
+            remaining = max(0, g["target"] - g["saved"])
+
+            # make a simple text progress bar
+            filled = int(pct / 5)  # 20 blocks = 100%
+            bar = "█" * filled + "░" * (20 - filled)
+
+            # check if goal is done
+            if pct >= 100:
+                status = "🎉 COMPLETED!"
+            elif pct >= 75:
+                status = "🔥 Almost there!"
+            elif pct >= 50:
+                status = "💪 Halfway!"
+            elif pct >= 25:
+                status = "📈 Good start"
+            else:
+                status = "🚀 Just started"
+
+            print(f"\n  🎯 Goal #{g['id']}: {g['name']}")
+            print(f"     Target   : ₹{g['target']:>10,.2f}")
+            print(f"     Saved    : ₹{g['saved']:>10,.2f}  ({pct:.1f}%)")
+            print(f"     Remaining: ₹{remaining:>10,.2f}")
+            print(f"     Deadline : {g['deadline']}")
+            print(f"     Progress : [{bar}] {status}")
+
+            # calculate how much to save per day if deadline is set
+            if g["deadline"] != "No deadline":
+                try:
+                    dl = datetime.strptime(g["deadline"], "%Y-%m-%d").date()
+                    days_left = (dl - date.today()).days
+                    if days_left > 0 and remaining > 0:
+                        daily = remaining / days_left
+                        print(f"     💡 Save ₹{daily:.2f}/day to reach your goal!")
+                    elif days_left <= 0:
+                        print(f"     ⚠️  Deadline has passed!")
+                except:
+                    pass
+
+        print("\n" + "─" * 55)
+
+    elif choice == "3":
+        # update saved amount
+        if not goals:
+            print("\n  No goals found.")
+            return
+
+        print("\n  Your goals:")
+        for g in goals:
+            print(f"    {g['id']}. {g['name']}  (saved: ₹{g['saved']:,.2f} / ₹{g['target']:,.2f})")
+
+        try:
+            gid = int(input("\n  Enter goal ID to update: ").strip())
+            add_amt = float(input("  Amount to add to savings (₹): ").strip())
+        except ValueError:
+            print("  ⚠️  Invalid input.")
+            return
+
+        updated = False
+        for g in goals:
+            if g["id"] == gid:
+                g["saved"] += add_amt
+                updated = True
+                pct = min((g["saved"] / g["target"] * 100), 100)
+                print(f"\n  ✅ Updated! '{g['name']}' → ₹{g['saved']:,.2f} saved ({pct:.1f}%)")
+                if g["saved"] >= g["target"]:
+                    print(f"  🎉🎉 Congratulations! You've reached your goal: {g['name']}!")
+                break
+
+        if not updated:
+            print("  ⚠️  Goal ID not found.")
+            return
+
+        save_goals(goals)
+
+    elif choice == "4":
+        # delete a goal
+        if not goals:
+            print("\n  No goals to delete.")
+            return
+
+        print("\n  Your goals:")
+        for g in goals:
+            print(f"    {g['id']}. {g['name']}")
+
+        try:
+            gid = int(input("\n  Enter goal ID to delete: ").strip())
+        except ValueError:
+            print("  ⚠️  Invalid input.")
+            return
+
+        new_goals = [g for g in goals if g["id"] != gid]
+        if len(new_goals) == len(goals):
+            print("  ⚠️  Goal not found.")
+        else:
+            save_goals(new_goals)
+            print("  ✅ Goal deleted.")
+
+    elif choice == "0":
+        return
+    else:
+        print("  ⚠️  Invalid option.")
 
 
 def main():
@@ -546,6 +743,7 @@ def main():
         "9": ("📉  Generate Charts", generate_charts),
         "10": ("🤖  Predict Next Month (ML)", predict_spending),
         "11": ("💾  Export to CSV", export_to_csv),
+        "12": ("💰  Savings Goal Tracker", savings_goal_tracker),
         "0": ("🚪  Exit", None),
     }
 
